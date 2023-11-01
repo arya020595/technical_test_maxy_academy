@@ -123,7 +123,6 @@ class PostController extends Controller
     {
         //validate form
         $this->validate($request, [
-            'image'     => 'required|image|mimes:jpeg,jpg,png|max:2048',
             'title'     => 'required|min:5',
             'category'     => 'required',
             'user'     => 'required',
