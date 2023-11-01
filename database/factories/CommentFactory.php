@@ -18,10 +18,13 @@ class CommentFactory extends Factory
      */
     public function definition(): array
     {
+        $user = User::inRandomOrder()->first();
+        $post = Post::inRandomOrder()->first();
+
         return [
-            'user_id' => User::factory(), // Assign the comment to a user
-            'post_id' => Post::factory(), // Assign the comment to a post
-            'body' => fake()->text(),
+            'user_id' => $user->id, // Assign the comment to a user
+            'post_id' => $post->id, // Assign the comment to a post
+            'content' => fake()->text(),
         ];
     }
 }

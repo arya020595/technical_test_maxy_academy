@@ -18,10 +18,13 @@ class ReplyFactory extends Factory
      */
     public function definition(): array
     {
+        $user = User::inRandomOrder()->first();
+        $comment = Comment::inRandomOrder()->first();
+
         return [
-            'user_id' => User::factory(), // Assign the reply to a user
-            'comment_id' => Comment::factory(), // Assign the reply to a comment
-            'body' => fake()->text(),
+            'user_id' =>  $user->id, // Assign the reply to a user
+            'comment_id' =>  $comment->id, // Assign the reply to a comment
+            'content' => fake()->text(),
         ];
     }
 }

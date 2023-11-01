@@ -18,12 +18,15 @@ class PostFactory extends Factory
      */
     public function definition(): array
     {
+        $user = User::inRandomOrder()->first();
+        $category = Category::inRandomOrder()->first();
+
         return [
-            'user_id' => User::factory(),
-            'category_id' => Category::factory(),
+            'user_id' =>  $user->id,
+            'category_id' => $category->id,
             'title' => fake()->sentence(3),
-            'body' => fake()->text(),
-            'image' => fake()->image('public/storage/', 400, 300)
+            'content' => fake()->text(),
+            // 'image' => fake()->image('public/storage/posts', 400, 300)
         ];
     }
 }
