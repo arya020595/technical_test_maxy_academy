@@ -24,10 +24,10 @@ class PostController extends Controller
      *
      * @return View
      */
-    public function index(): View
+    public function index(Request $request): View
     {
         //get posts
-        $posts = Post::latest()->paginate(5);
+        $posts = Post::latest()->filter()->paginate(5);
 
         //render view with posts
         return view('posts.index', compact('posts'));

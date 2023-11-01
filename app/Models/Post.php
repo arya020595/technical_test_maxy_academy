@@ -4,12 +4,21 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 
 class Post extends Model
 {
     use HasFactory;
 
     protected $guarded = [];
+
+    public function scopeFilter(Builder $query): void
+    {
+        if (request('search')) {
+            $search = request('search');
+            $query->where('title', 'like', $search . '%');
+        }
+    }
 
     public function user()
     {
