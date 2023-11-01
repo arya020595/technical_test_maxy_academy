@@ -57,7 +57,7 @@ class PostController extends Controller
 
         //validate form
         $this->validate($request, [
-            'image'     => 'required|image|mimes:jpeg,jpg,png|max:2048',
+            'image'     => 'image|mimes:jpeg,jpg,png|max:2048',
             'title'     => 'required|min:5',
             'category'     => 'required',
             'user'     => 'required',
@@ -66,11 +66,13 @@ class PostController extends Controller
 
         //upload image
         $image = $request->file('image');
-        $image->storeAs('public/posts', $image->hashName());
+        if ($image) {
+            $image->storeAs('public/posts', $image->hashName());
+        }
 
         //create post
         Post::create([
-            'image'     => $image->hashName(),
+            'image'     => $image ? $image->hashName() : null,
             'title'     => $request->title,
             'content'   => $request->content,
             'category_id'   => $request->category,
@@ -123,6 +125,7 @@ class PostController extends Controller
     {
         //validate form
         $this->validate($request, [
+            'image'     => 'image|mimes:jpeg,jpg,png|max:2048',
             'title'     => 'required|min:5',
             'category'     => 'required',
             'user'     => 'required',
